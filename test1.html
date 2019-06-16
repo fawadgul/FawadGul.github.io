@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
+   
+     <!-- Bootstrap Core CSS -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+ 
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+ 
+    <script src="htmlcall.js"></script>
+    </head>
+<body>
+
+
+<div class="container"><h2>Open Weather API</h2>
+
+
+
+
+
+<div class="row">
+<div class="col-md-7"> Enter a city around the world  <input type="text" name=" City" id="thecity"><button type="button" id="btn1">Get Weather!</button></div>
+<div class="col-md-5"> </div> 
+</div>
+
+<!-- <button type="button" id="btn1" onclick="loadData()">Submit</button>  -->
+<div class="row">
+<div class="col-md-7" id="demo"></div>
+<div class="col-md-5"></div>
+</div>
+
+</div>
+
+<script>
+//ADD EVENT LISTENERS
+window.addEventListener("load", start, false);
+
+function start(){
+ document.getElementById("btn1").addEventListener("click", loadData,false);
+}
+
+
+function loadData() {
+    //GET City Value from user
+    cityval = document.getElementById('thecity').value;
+    //STORE City in the string
+    htmldata = "http://api.openweathermap.org/data/2.5/weather?q=" + cityval + "&mode=html&APPID=afe24dbc851567b6dd99613b06c61f1f";
+    
+    //SEND Ajax 
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (xhttp.readyState == 4 && xhttp.status == 200) {
+      //Write the response to the HTML document    
+     // document.getElementById("demo").innerHTML = xhttp.responseText;
+     var data1 = xhttp.responseText;
+     document.getElementById("demo").innerHTML = data1;
+     
+     var data2 = JSON.parse(data1);
+     document.getElementById("demo2").innerHTML = data2;
+     document.getElementById("demo3").innerHTML = data2.name;
+     
+    }
+  };
+  xhttp.open("GET", htmldata, true);
+  xhttp.send();
+}
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
